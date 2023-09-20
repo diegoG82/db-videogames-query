@@ -1,3 +1,5 @@
+QUERY select:
+
 1- Selezionare tutte le software house americane (3) OK
 
 SELECT * 
@@ -9,20 +11,20 @@ WHERE country ='United States';
 
 SELECT * 
 FROM players
-WHERE city ='Rogahnland'
+WHERE city ='Rogahnland';
 
 
 3- Selezionare tutti i giocatori il cui nome finisce per "a" (220) OK
 
 SELECT * 
 FROM players
-WHERE name LIKE '%a'
+WHERE name LIKE '%a';
 
 4- Selezionare tutte le recensioni scritte dal giocatore con ID = 800 (11) OK
 
 SELECT * 
 FROM reviews
-WHERE player_id = '800'
+WHERE player_id = '800';
 
 5- Contare quanti tornei ci sono stati nell'anno 2015 (9) OK
 
@@ -52,7 +54,7 @@ FROM reviews
 WHERE rating BETWEEN 2 AND 4;
 
 
-9- Selezionare tutti i dati dei videogiochi rilasciati nell'anno 2020 (46)
+9- Selezionare tutti i dati dei videogiochi rilasciati nell'anno 2020 (46) OK
 
 SELECT * 
 FROM videogames
@@ -60,11 +62,59 @@ WHERE YEAR (release_date) = 2020;
 
 
 
-10- Selezionare gli id dei videogame che hanno ricevuto almeno una recensione da 5 stelle, mostrandoli una sola volta (443)
+10- Selezionare gli id dei videogame che hanno ricevuto almeno una recensione da 5 stelle, mostrandoli una sola volta (443) OK
 
 SELECT DISTINCT videogame_id
 from reviews
 where rating = 5;
+
+
+Query GROUP BY:
+
+
+1- Contare quante software house ci sono per ogni paese (3) OK
+
+SELECT country, COUNT(*) AS software_house_by_country
+FROM software_houses
+GROUP BY country;
+
+
+2- Contare quante recensioni ha ricevuto ogni videogioco (del videogioco vogliamo solo l'ID) (500) OK
+
+SELECT videogame_id, COUNT(*) AS reviews_number
+FROM reviews
+GROUP BY videogame_id;
+
+
+3- Contare quanti videogiochi hanno ciascuna classificazione PEGI (della classificazione PEGI vogliamo solo l'ID) (13) OK
+
+SELECT pegi_label_id, COUNT(*) AS pegi_games
+from pegi_label_videogame
+GROUP BY pegi_label_id;
+
+
+4- Mostrare il numero di videogiochi rilasciati ogni anno (11)
+
+SELECT YEAR (release_date) AS year, COUNT(*) AS videogames_for_year
+FROM videogames
+GROUP BY YEAR (release_date);
+
+5- Contare quanti videogiochi sono disponbiili per ciascun device (del device vogliamo solo l'ID) (7)
+
+SELECT device_videogame.device_id, COUNT(*) AS videogames_for_device
+FROM device_videogame
+GROUP BY device_videogame.device_id;
+
+6- Ordinare i videogame in base alla media delle recensioni (del videogioco vogliamo solo l'ID) (500)
+
+SELECT reviews.videogame_id, AVG(rating) AS average_rating
+FROM reviews
+GROUP BY  reviews.videogame_id
+ORDER BY average_rating DESC;
+
+
+
+
 
 
 
