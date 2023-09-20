@@ -200,7 +200,7 @@ join award_videogame on award_videogame.videogame_id = videogames.id
 join awards on awards.id = award_videogame.award_id 
 join player_tournament on player_tournament.tournament_id  = tournaments.id 
 join players on player_tournament.player_id = players.id 
-where awards.name like 'Gioco più attesoo' and award_videogame.year = 2018 and tournaments.year = 2019
+where awards.name like 'Gioco più atteso' and award_videogame.year = 2018 and tournaments.year = 2019
 
 
 
